@@ -1,12 +1,15 @@
 BlogType = GraphQL::ObjectType.define do
   name 'Blog'
   description 'A Blog'
+  interfaces [GraphQL::Relay::Node.interface]
+
   field :title, types.String
   field :content, types.String
-  field :author do
-    type AuthorType
-    resolve -> (obj, args, ctx) {
-      obj.author
+
+  connection :author do
+    type AuthorType.connection_type
+    resolve -> (blog, _, _) {
+      blog.author
     }
   end
 end

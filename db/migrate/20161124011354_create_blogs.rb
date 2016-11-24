@@ -4,6 +4,7 @@ class CreateBlogs < ActiveRecord::Migration[5.0]
       t.string :title
       t.string :content
       t.references :author
+      t.references :user
 
       t.timestamps
     end
