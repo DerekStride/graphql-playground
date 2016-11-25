@@ -3,12 +3,14 @@ AuthorType = GraphQL::ObjectType.define do
   description 'Author of Blogs'
   interfaces [GraphQL::Relay::Node.interface]
 
+  field :id, !types.ID
   field :name, types.String
 
   connection :blogs do
     type BlogType.connection_type
+
     resolve -> (author, args, _) {
-      author.blogs.first(args[:first])
+      author.blogs
     }
   end
 end
